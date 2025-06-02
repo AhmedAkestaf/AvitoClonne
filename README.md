@@ -126,7 +126,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Team
 
-- [Your Name] - Full Stack Developer
+- Akestaf Ahmed - Full Stack Developer
 
 ## 🔮 Future Enhancements
 
@@ -140,7 +140,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-For support, email your-email@example.com or create an issue on GitHub.
+For support, email ahmedakestaf@gmail.com or create an issue on GitHub.
 
 ---
 
