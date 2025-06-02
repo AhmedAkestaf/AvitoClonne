@@ -1,0 +1,20 @@
+<%= render 'layouts/navigation' %>
+<div class="settings-container">  
+  <div class="settings-content">
+    <div class="settings-header">
+      <ul class="settings-tabs">
+
+        <li class="settings-tab active">
+          <%= link_to "#", class: "tab-link active" do %>
+            <i class="fas fa-cog"></i> Réglages
+          <% end %>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="settings-form-container">
+      <%= render 'layouts/formUpdate', user: @user %>
+    </div>
+  </div>
+</div>
+<%= render 'layouts/footer' %>

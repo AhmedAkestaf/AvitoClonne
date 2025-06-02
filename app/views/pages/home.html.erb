@@ -1,0 +1,177 @@
+<!-- app/views/pages/home.html.erb -->
+<%= render 'layouts/navigation' %>
+
+<div class="search-container">
+  <div class="container">
+    <div class="search-wrapper">
+      <div class="search-input">
+        <input type="text" placeholder="Que recherchez-vous ?" class="form-control">
+      </div>
+      <div class="categories-dropdown">
+        <button class="btn btn-categories">
+          <i class="bi bi-grid-3x3-gap"></i>
+          Toutes les catégories
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+      <div class="location-dropdown">
+        <button class="btn btn-location">
+          <i class="bi bi-geo-alt"></i>
+          <input type="text" placeholder="Choisir ville - secteur" class="form-control">
+        </button>
+      </div>
+      <div class="search-button">
+        <button class="btn btn-search">
+          <i class="bi bi-search"></i>
+          Rechercher
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Main Categories -->
+<div class="main-categories">
+  <a href="#" class="category-link">
+    <div class="category-box immobilier">
+      <i class="bi bi-house-door category-icon"></i>
+      <span>Immobilier</span>
+    </div>
+  </a>
+  <a href="#" class="category-link">
+    <div class="category-box vehicules">
+      <i class="bi bi-car-front category-icon"></i>
+      <span>Véhicules</span>
+    </div>
+  </a>
+  <a href="#" class="category-link">
+    <div class="category-box marketplace">
+      <i class="bi bi-cart category-icon"></i>
+      <span>Marketplace</span>
+    </div>
+  </a>
+  <a href="#" class="category-link">
+    <div class="category-box emplois">
+      <i class="bi bi-person-badge category-icon"></i>
+      <span>Emplois et Services</span>
+    </div>
+  </a>
+</div>
+
+
+<!-- Banner Ad -->
+<div class="banner-ad">
+  <div class="container">
+    <%= image_tag "kia_banner.jpg", alt: "Geely Emgrand", class: "img-fluid banner-image" %>
+  </div>
+</div>
+
+<!-- Popular Categories -->
+<div class="popular-categories">
+  <div class="container">
+    <h2 class="section-title">Catégories populaires</h2>
+    <div class="categories-grid">
+      <div class="category-item">
+        <a href="#" class="category-link">
+          <div class="category-card">
+            <div class="icon-container voitures">
+              <i class="bi bi-car-front"></i>
+            </div>
+            <span>VOITURES D'OCCASION</span>
+          </div>
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#" class="category-link">
+          <div class="category-card">
+            <div class="icon-container motos">
+              <i class="bi bi-bicycle"></i>
+            </div>
+            <span>MOTOS</span>
+          </div>
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#" class="category-link">
+          <div class="category-card">
+            <div class="icon-container immobilieres">
+              <i class="bi bi-house"></i>
+            </div>
+            <span>VENTES IMMOBILIÈRES</span>
+          </div>
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#" class="category-link">
+          <div class="category-card">
+            <div class="icon-container location">
+              <i class="bi bi-key"></i>
+            </div>
+            <span>LOCATION IMMOBILIÈRE</span>
+          </div>
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#" class="category-link">
+          <div class="category-card">
+            <div class="icon-container appartement">
+              <i class="bi bi-building"></i>
+            </div>
+            <span>APPARTEMENT LOCATION DE</span>
+          </div>
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#" class="category-link">
+          <div class="category-card">
+            <div class="icon-container maison">
+              <i class="bi bi-flower1"></i>
+            </div>
+            <span>MAISON ET JARDIN</span>
+          </div>
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#" class="category-link">
+          <div class="category-card">
+            <div class="icon-container informatique">
+              <i class="bi bi-laptop"></i>
+            </div>
+            <span>INFORMATIQUE, MULTIMEDIA ET</span>
+          </div>
+        </a>
+      </div>
+      <div class="category-item">
+        <a href="#" class="category-link">
+          <div class="category-card">
+            <div class="icon-container habillement">
+              <i class="bi bi-bag"></i>
+            </div>
+            <span>HABILLEMENT ET MODE</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Secondary Banner -->
+<div class="secondary-banner">
+  <div class="container">
+    <%= image_tag "fiat_banner.jpg", alt: "Kia Sorento", class: "img-fluid" %>
+  </div>
+</div>
+
+<!-- Dernières Annonces -->
+<div class="latest-annonces py-4">
+  <div class="container">
+    <h2 class="section-title mb-4">Dernières annonces</h2>
+    <div class="row">
+      <%= render partial: 'annonces/annonce', collection: Annonce.order(created_at: :desc).limit(6) %>
+    </div>
+  </div>
+</div>
+
+
+
+
+<%= render 'layouts/footer' %>

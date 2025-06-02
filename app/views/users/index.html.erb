@@ -1,0 +1,111 @@
+<%= render 'layouts/navigation' %>
+
+<!-- app/views/users/index.html.erb -->
+<div class="users-admin-container">
+  <div class="users-header">
+    <h1>Gestion des utilisateurs</h1>
+    <div class="users-stats">
+      <div class="stat-card">
+        <span class="stat-number"><%= @users.count %></span>
+        <span class="stat-label">Utilisateurs total</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number"><%= @users.where(admin: true).count %></span>
+        <span class="stat-label">Administrateurs</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="users-search-bar">
+    <%= form_with url: users_path, method: :get, class: "search-form" do |f| %>
+      <div class="search-input-container">
+        <i class="bi bi-search"></i>
+        <%= f.text_field :q, placeholder: "Rechercher par nom, prénom ou email", class: "search-input", value: params[:q] %>
+      </div>
+      <%= f.submit "Rechercher", class: "search-button" %>
+    <% end %>
+  </div>
+
+  <div class="users-table-container">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Utilisateur</th>
+          <th>Contact</th>
+          <th>Inscription</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr class="<%= user.admin? ? 'admin-row' : '' %>">
+            <td class="user-id"><%= user.id %></td>
+            <td class="user-identity">
+              <div class="user-avatar">
+                <i class="bi bi-person-circle"></i>
+              </div>
+              <div class="user-name">
+                <span class="full-name"><%= user.prenom %> <%= user.nom %></span>
+                <% if user.admin? %>
+                  <span class="admin-badge">Admin</span>
+                <% end %>
+              </div>
+            </td>
+            <td class="user-contact">
+              <div class="contact-info">
+                <div class="contact-item">
+                  <i class="bi bi-envelope"></i>
+                  <%= user.email %>
+                </div>
+                <div class="contact-item">
+                  <i class="bi bi-telephone"></i>
+                  <%= user.phone %>
+                </div>
+              </div>
+            </td>
+            <td class="user-date">
+              <div class="date-info">
+                <span class="date"><%= user.created_at.strftime("%d/%m/%Y") %></span>
+                <span class="time"><%= user.created_at.strftime("%H:%M") %></span>
+              </div>
+            </td>
+            <td class="user-status">
+              <span class="status-badge <%= user.admin? ? 'admin-status' : 'user-status' %>">
+                <%= user.admin? ? 'Administrateur' : 'Utilisateur' %>
+              </span>
+            </td>
+            <td class="user-actions">
+              <div class="action-buttons">
+                <%= link_to edit_user_path(user), class: "edit-button" do %>
+                  <i class="bi bi-pencil"></i>
+                  <span>Modifier</span>
+                <% end %>
+                
+                <%= link_to user_path(user), 
+                    data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible." }, 
+                    class: "delete-button" do %>
+                  <i class="bi bi-trash"></i>
+                  <span>Supprimer</span>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if @users.empty? %>
+    <div class="no-users-found">
+      <i class="bi bi-emoji-frown"></i>
+      <p>Aucun utilisateur trouvé</p>
+    </div>
+  <% end %>
+
+  <div class="pagination-container">
+    <%# Ajoutez ici votre pagination si vous utilisez will_paginate ou kaminari %>
+  </div>
+</div>
+<%= render 'layouts/footer' %>

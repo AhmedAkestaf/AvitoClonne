@@ -1,0 +1,175 @@
+<!-- app/views/annonces/new.html.erb -->
+
+<div class="avito-form-container">
+  <div class="avito-form-header">
+    <div class="step-indicator active">
+      <div class="step-icon">
+        <i class="fas fa-file-alt"></i>
+      </div>
+      <div class="step-content">
+        <h2>Information Général</h2>
+        <p>Remplir les informations générales de votre annonce</p>
+      </div>
+    </div>
+    <div class="step-navigation">
+      <div class="step-nav-buttons">
+        <%= link_to "Quitter", root_path, class: "nav-button quit-button" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="avito-form-content">
+    <div class="form-main-section">
+      <div class="form-section">
+        <h3 class="section-title">Qu'annoncez-vous aujourd'hui ?</h3>
+        <p class="section-subtitle">Grâce à ces informations les acheteurs peuvent trouver votre annonce plus facilement</p>
+
+        <%= form_with(model: @annonce, local: true, class: "avito-form", html: { enctype: "multipart/form-data" }) do |form| %>
+          <% if @annonce.errors.any? %>
+            <div class="form-errors">
+              <h4><%= pluralize(@annonce.errors.count, "erreur") %> :</h4>
+              <ul>
+                <% @annonce.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group required">
+            <%= form.label :categorie, class: "form-label" %>
+            <div class="form-field-container">
+              <span class="field-icon"><i class="fas fa-th-large"></i></span>
+              <%= form.select :categorie, [
+                ["Appartement à vendre", "Appartement à vendre", {data: {icon: "fas fa-building"}}], 
+                ["Véhicules", "Véhicules", {data: {icon: "fas fa-car"}}], 
+                ["Immobilier", "Immobilier", {data: {icon: "fas fa-home"}}], 
+                ["Électronique", "Électronique", {data: {icon: "fas fa-laptop"}}],
+                ["Maison et Jardin", "Maison et Jardin", {data: {icon: "fas fa-couch"}}],
+                ["Habillement et Mode", "Habillement et Mode", {data: {icon: "fas fa-tshirt"}}],
+                ["Emplois et Services", "Emplois et Services", {data: {icon: "fas fa-briefcase"}}],
+                ["Autres", "Autres", {data: {icon: "fas fa-boxes"}}]
+              ], {}, { class: "form-control form-select custom-select" } %>
+              <span class="field-icon right-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+          </div>
+
+          <h3 class="section-title address-title">Votre Adresse</h3>
+
+          <div class="form-group">
+            <%= form.label :localisation, "Ville", class: "form-label" %>
+            <div class="form-field-container">
+              <span class="field-icon"><i class="fas fa-map-marker-alt"></i></span>
+              <%= form.text_field :localisation, class: "form-control", placeholder: "Ex: Casablanca, Marrakech..." %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :titre, class: "form-label" %>
+            <div class="form-field-container">
+              <span class="field-icon"><i class="fas fa-pen"></i></span>
+              <%= form.text_field :titre, class: "form-control", placeholder: "Ex: BMW X6 2022 excellent état" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :description, class: "form-label" %>
+            <div class="form-field-container textarea-container">
+              <span class="field-icon textarea-icon"><i class="fas fa-align-left"></i></span>
+              <%= form.text_area :description, class: "form-control", rows: 5, placeholder: "Décrivez votre produit ou service en détail..." %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :prix, class: "form-label" %>
+            <div class="form-field-container">
+              <span class="field-icon"><i class="fas fa-tag"></i></span>
+              <%= form.number_field :prix, class: "form-control", min: 0, step: "0.01" %>
+              <span class="field-icon right-icon currency-icon">DH</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :image, class: "form-label" %>
+            <div class="form-field-container file-container">
+              <span class="field-icon"><i class="fas fa-camera"></i></span>
+              <%= form.file_field :image, class: "form-control file-input", direct_upload: true %>
+            </div>
+          </div>
+
+          <div class="form-submit">
+            <%= form.submit "DÉPOSER", class: "submit-button" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="form-sidebar">
+      <div class="tips-box">
+        <div class="tips-header">
+          <i class="fas fa-lightbulb tips-icon"></i>
+          <h4>Comment définir mon annonce</h4>
+        </div>
+        <ul class="tips-list">
+          <li>
+            <i class="fas fa-check-circle list-icon"></i>
+            <span>Choisir la bonne catégorie lors de l'insertion d'une annonce peut aider à augmenter la visibilité, la pertinence et l'efficacité, et éviter tout potentiel refus.</span>
+          </li>
+          <li>
+            <i class="fas fa-check-circle list-icon"></i>
+            <span>Il est important d'inclure une adresse postale claire et précise pour que les clients potentiels puissent facilement vous trouver.</span>
+          </li>
+          <li>
+            <i class="fas fa-check-circle list-icon"></i>
+            <span>Assurez-vous d'inclure un numéro de téléphone auquel les clients potentiels peuvent vous joindre.</span>
+          </li>
+          <li>
+            <i class="fas fa-check-circle list-icon"></i>
+            <span>Gardez vos coordonnées à jour.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Script pour personnaliser les icônes du select de catégories
+  document.addEventListener('DOMContentLoaded', function() {
+    const selectElement = document.querySelector('.custom-select');
+    
+    // Fonction pour personnaliser l'apparence du select avec les icônes
+    function customizeSelect() {
+      const options = selectElement.options;
+      const selectedOption = options[selectElement.selectedIndex];
+      
+      // Trouver l'icône à gauche du select et la mettre à jour
+      const iconElement = selectElement.parentElement.querySelector('.field-icon:not(.right-icon)').querySelector('i');
+      
+      // Définir les icônes pour chaque catégorie
+      const iconClasses = {
+        'Appartement à vendre': 'fas fa-building',
+        'Véhicules': 'fas fa-car',
+        'Immobilier': 'fas fa-home',
+        'Électronique': 'fas fa-laptop',
+        'Maison et Jardin': 'fas fa-couch',
+        'Habillement et Mode': 'fas fa-tshirt',
+        'Emplois et Services': 'fas fa-briefcase',
+        'Autres': 'fas fa-boxes'
+      };
+      
+      // Mettre à jour l'icône en fonction de la valeur sélectionnée
+      const selectedValue = selectedOption.value;
+      const iconClass = iconClasses[selectedValue] || 'fas fa-th-large';
+      
+      // Remplacer toutes les classes d'icônes
+      iconElement.className = iconClass;
+    }
+    
+    // Exécuter au chargement de la page
+    customizeSelect();
+    
+    // Exécuter à chaque changement de sélection
+    selectElement.addEventListener('change', customizeSelect);
+  });
+</script>

@@ -1,0 +1,199 @@
+<!-- app/views/annonces/edit.html.erb -->
+<div class="avito-form-container">
+  <div class="avito-form-header">
+    <div class="step-indicator active">
+      <div class="step-icon">
+        <i class="fas fa-pencil-alt"></i>
+      </div>
+      <div class="step-content">
+        <h2>Modifier votre annonce</h2>
+        <p>Mettez à jour les informations de votre annonce</p>
+      </div>
+    </div>
+    <div class="step-navigation">
+      <div class="step-nav-buttons">
+        
+        <%= link_to "Annuler", root_path, class: "nav-button quit-button" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="avito-form-content">
+    <div class="form-main-section">
+      <div class="form-section">
+        <h3 class="section-title">Modifier les détails de votre annonce</h3>
+        <p class="section-subtitle">Améliorez la visibilité de votre annonce avec des informations précises</p>
+
+        <%= form_with(model: @annonce, local: true, class: "avito-form", html: { enctype: "multipart/form-data" }) do |form| %>
+          <% if @annonce.errors.any? %>
+            <div class="form-errors">
+              <h4><%= pluralize(@annonce.errors.count, "erreur") %> :</h4>
+              <ul>
+                <% @annonce.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group required">
+            <%= form.label :categorie, class: "form-label" %>
+            <div class="form-field-container">
+              <span class="field-icon"><i class="fas fa-th-large"></i></span>
+              <%= form.select :categorie, [
+                ["Appartement à vendre", "Appartement à vendre"], 
+                ["Véhicules", "Véhicules"], 
+                ["Immobilier", "Immobilier"], 
+                ["Électronique", "Électronique"],
+                ["Maison et Jardin", "Maison et Jardin"],
+                ["Habillement et Mode", "Habillement et Mode"],
+                ["Emplois et Services", "Emplois et Services"],
+                ["Autres", "Autres"]
+              ], {}, { class: "form-control form-select custom-select" } %>
+              <span class="field-icon right-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :titre, class: "form-label" %>
+            <div class="form-field-container">
+              <span class="field-icon"><i class="fas fa-pen"></i></span>
+              <%= form.text_field :titre, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :description, class: "form-label" %>
+            <div class="form-field-container textarea-container">
+              <span class="field-icon textarea-icon"><i class="fas fa-align-left"></i></span>
+              <%= form.text_area :description, class: "form-control", rows: 5 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :prix, class: "form-label" %>
+            <div class="form-field-container">
+              <span class="field-icon"><i class="fas fa-tag"></i></span>
+              <%= form.number_field :prix, class: "form-control", min: 0, step: "0.01" %>
+              <span class="field-icon right-icon currency-icon">DH</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :localisation, "Ville", class: "form-label" %>
+            <div class="form-field-container">
+              <span class="field-icon"><i class="fas fa-map-marker-alt"></i></span>
+              <%= form.text_field :localisation, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :image, class: "form-label" %>
+            <% if @annonce.image.present? %>
+              <div class="current-image">
+                <div class="image-preview">
+                  <%= image_tag @annonce.image, class: "preview-thumbnail" %>
+                </div>
+                <div class="image-caption">
+                  <i class="fas fa-image"></i> Image actuelle
+                </div>
+              </div>
+            <% end %>
+            <div class="form-field-container file-container">
+              <span class="field-icon"><i class="fas fa-camera"></i></span>
+              <%= form.file_field :image, class: "form-control file-input", direct_upload: true %>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <div class="action-buttons">
+              <%= link_to "Supprimer l'annonce", annonce_path(@annonce), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cette annonce ?" }, class: "delete-button" %>
+              <%= form.submit "METTRE À JOUR", class: "submit-button" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="form-sidebar">
+      <div class="tips-box">
+        <div class="tips-header">
+          <i class="fas fa-lightbulb tips-icon"></i>
+          <h4>Conseils pour votre annonce</h4>
+        </div>
+        <ul class="tips-list">
+          <li>
+            <i class="fas fa-check-circle list-icon"></i>
+            <span>Ajoutez des photos claires et attrayantes pour attirer plus d'acheteurs potentiels.</span>
+          </li>
+          <li>
+            <i class="fas fa-check-circle list-icon"></i>
+            <span>Soyez précis dans votre description pour éviter les questions inutiles.</span>
+          </li>
+          <li>
+            <i class="fas fa-check-circle list-icon"></i>
+            <span>Indiquez un prix réaliste pour votre produit ou service.</span>
+          </li>
+          <li>
+            <i class="fas fa-check-circle list-icon"></i>
+            <span>Mettez à jour régulièrement votre annonce pour la maintenir active.</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="info-box">
+        <div class="info-header">
+          <i class="fas fa-info-circle info-icon"></i>
+          <h4>Informations</h4>
+        </div>
+        <div class="info-content">
+          <p>Votre annonce a été publiée le <%= @annonce.created_at.strftime('%d/%m/%Y') %>.</p>
+          <p>Dernière mise à jour: <%= @annonce.updated_at.strftime('%d/%m/%Y') %>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Script pour personnaliser les icônes du select de catégories
+  document.addEventListener('DOMContentLoaded', function() {
+    const selectElement = document.querySelector('.custom-select');
+    
+    // Fonction pour personnaliser l'apparence du select avec les icônes
+    function customizeSelect() {
+      const options = selectElement.options;
+      const selectedOption = options[selectElement.selectedIndex];
+      
+      // Trouver l'icône à gauche du select et la mettre à jour
+      const iconElement = selectElement.parentElement.querySelector('.field-icon:not(.right-icon)').querySelector('i');
+      
+      // Définir les icônes pour chaque catégorie
+      const iconClasses = {
+        'Appartement à vendre': 'fas fa-building',
+        'Véhicules': 'fas fa-car',
+        'Immobilier': 'fas fa-home',
+        'Électronique': 'fas fa-laptop',
+        'Maison et Jardin': 'fas fa-couch',
+        'Habillement et Mode': 'fas fa-tshirt',
+        'Emplois et Services': 'fas fa-briefcase',
+        'Autres': 'fas fa-boxes'
+      };
+      
+      // Mettre à jour l'icône en fonction de la valeur sélectionnée
+      const selectedValue = selectedOption.value;
+      const iconClass = iconClasses[selectedValue] || 'fas fa-th-large';
+      
+      // Remplacer toutes les classes d'icônes
+      iconElement.className = iconClass;
+    }
+    
+    // Exécuter au chargement de la page
+    if (selectElement) {
+      customizeSelect();
+      
+      // Exécuter à chaque changement de sélection
+      selectElement.addEventListener('change', customizeSelect);
+    }
+  });
+</script>

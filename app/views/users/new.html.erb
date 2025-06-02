@@ -1,0 +1,24 @@
+<%= render 'layouts/navigation' %>
+<div class="avito-split-container">
+  <!-- Partie gauche avec logo et texte -->
+  <div class="avito-left-panel">
+    <div class="avito-left-content">
+      <h2 class="avito-title">Vente et achat en ligne</h2>
+      <p class="avito-subtitle">Avito, la marketplace <span class="text-primary">Numéro 1</span> de vente et d'achat en ligne au Maroc.</p>
+     
+      <div class="avito-logo">
+        <%= image_tag "logo.png", alt: "Avito Logo", class: "img-fluid" %>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Partie droite avec formulaire -->
+  <div class="avito-right-panel">
+    <div class="avito-form-container">
+      <h1 class="avito-form-title">Créez votre compte Avito</h1>
+      <p class="avito-form-subtitle">Rejoignez la plus grande communauté d'acheteurs et vendeurs au Maroc</p>
+     
+      <%= render 'layouts/form', user: @user %>
+    </div>
+  </div>
+</div>

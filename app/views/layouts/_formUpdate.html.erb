@@ -1,0 +1,81 @@
+<%= form_with(model: user, class: "profile-edit-form") do |form| %>
+    <% if user.errors.any? %>
+      <div class="avito-error-message">
+        <h2><%= pluralize(user.errors.count, "erreur") %> ont empêché cet utilisateur d'être sauvegardé:</h2>
+        <ul>
+          <% user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <div class="form-field">
+      <%= form.label :prenom, "* Prénom", class: "field-label required" %>
+      <div class="field-input-container">
+
+        <%= form.text_field :prenom, class: "field-input", placeholder: "Prénom" %>
+        <button type="button" class="clear-input" aria-label="Effacer">×</button>
+      </div>
+    </div>
+    
+    <div class="form-field">
+      <%= form.label :nom, "* Nom", class: "field-label required" %>
+      <div class="field-input-container">
+
+        <%= form.text_field :nom, class: "field-input", placeholder: "Nom" %>
+        <button type="button" class="clear-input" aria-label="Effacer">×</button>
+      </div>
+    </div>
+    
+    <div class="form-field">
+      <%= form.label :telephone, "* Téléphone", class: "field-label required" %>
+      <div class="field-input-container">
+
+        <%= form.telephone_field :phone, class: "field-input", placeholder: "Téléphone" %>
+        <button type="button" class="clear-input" aria-label="Effacer">×</button>
+      </div>
+      <div class="field-checkbox">
+        <%= check_box_tag :show_phone, '1', false, class: "checkbox-input" %>
+        <%= label_tag :show_phone, "Afficher mon numéro de téléphone", class: "checkbox-label" %>
+      </div>
+    </div>
+    
+    <div class="form-field">
+      <%= form.label :email, "* E-mail", class: "field-label required" %>
+      <div class="field-input-container">
+
+        <%= form.email_field :email, class: "field-input", placeholder: "E-mail" %>
+        <button type="button" class="clear-input" aria-label="Effacer">×</button>
+      </div>
+    </div>
+    
+    <div class="form-field">
+      <%= form.label :password, "* Mot de passe", class: "field-label required" %>
+      <div class="field-input-container">
+
+        <%= form.password_field :password, class: "field-input", placeholder: "Mot de passe" %>
+        <button type="button" class="show-password" aria-label="Afficher">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+      <div class="field-note">
+        Minimum 8 caractères, incluant au moins une lettre et un chiffre
+      </div>
+    </div>
+    
+    <div class="form-field">
+      <%= form.label :password_confirmation, "* Confirmation du mot de passe", class: "field-label required" %>
+      <div class="field-input-container">
+
+        <%= form.password_field :password_confirmation, class: "field-input", placeholder: "Confirmer le mot de passe" %>
+        <button type="button" class="show-password" aria-label="Afficher">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <%= form.submit "SAUVEGARDER", class: "save-button" %>
+    </div>
+  <% end %>

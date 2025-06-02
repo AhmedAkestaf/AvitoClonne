@@ -1,0 +1,117 @@
+<!-- app/views/shared/_navigation.html.erb -->
+<nav class="navbar navbar-light bg-white avito-navbar">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand" href="/">
+      <%= image_tag "logo.png", alt: "Avito", class: "avito-logo" %>
+    </a>
+    
+    <!-- Navigation links -->
+    <div class="navbar-nav-container">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Auto Neuf</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Immo Neuf</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Crédit Immobilier</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Crédit Conso</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Boutiques</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Magazine</a>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- Right side navigation items -->
+    <div class="navbar-actions">
+      <% if logged_in? %>
+        <!-- Si l'utilisateur est connecté -->
+        <div class="dropdown user-dropdown">
+          <button class="btn user-profile-button" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle"></i>
+            <%= current_user.prenom %> <%= current_user.nom %>
+            <% if current_user.admin? %>
+              <span class="badge bg-danger">Admin</span>
+            <% end %>
+            <i class="bi bi-chevron-down dropdown-icon"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end user-dropdown-menu" aria-labelledby="userDropdown">
+            <% if current_user.admin? %>
+              <!-- Menu pour l'administrateur -->
+              <li>
+                <a href="<%= annonces_path %>" class="dropdown-item">
+                  <i class="bi bi-megaphone"></i>
+                  Les annonces
+                </a>
+              </li>
+              <li>
+                <a href="<%= users_path %>" class="dropdown-item">
+                  <i class="bi bi-people"></i>
+                  Les utilisateurs
+                </a>
+              </li>
+            <% else %>
+              <!-- Menu pour l'utilisateur normal -->
+              <li>
+                <a href="<%= mes_annonces_path %>" class="dropdown-item">
+                  <i class="bi bi-megaphone"></i>
+                  Mes annonces
+                </a>
+              </li>
+              <li>
+                <a href="#" class="dropdown-item">
+                  <i class="bi bi-bag"></i>
+                  Mes commandes
+                </a>
+              </li>
+            <% end %>
+
+            <li>
+              <a href="<%= edit_user_path(current_user) %>" class="dropdown-item">
+                <i class="bi bi-gear"></i>
+                Réglages
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a href="<%= logout_path %>" data-turbo-method="delete" class="dropdown-item">
+                <i class="bi bi-box-arrow-right"></i>
+                Se déconnecter
+              </a>
+            </li>
+          </ul>
+        </div>
+      <% else %>
+        <!-- Si l'utilisateur n'est pas connecté -->
+        <%= link_to "Se Connecter", login_path, class: "login-link" %>
+      <% end %>
+      
+      <% if logged_in? %>
+        <%= link_to new_annonce_path, class: "btn btn-post" do %>
+          <i class="bi bi-plus-lg"></i>
+          Publier une annonce
+        <% end %>
+      <% else %>
+        <%= link_to login_path, class: "btn btn-post" do %>
+          <i class="bi bi-plus-lg"></i>
+          Publier une annonce
+        <% end %>
+      <% end %>
+      <a href="/support" class="support-icon">
+        <i class="bi bi-headset"></i>
+      </a>
+      <a href="/language" class="language-btn">
+        العربية
+      </a>
+    </div>
+  </div>
+</nav>
+<div class="border-bottom"></div>

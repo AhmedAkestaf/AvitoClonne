@@ -1,0 +1,50 @@
+<%= form_with(model: user) do |form| %>
+    <% if user.errors.any? %>
+      <div class="avito-error-message">
+        <h2><%= pluralize(user.errors.count, "erreur") %> ont empêché cet utilisateur d'être sauvegardé:</h2>
+        <ul>
+          <% user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="avito-form-group">
+      <%= form.label :nom, "Nom", class: "avito-label" %>
+      <%= form.text_field :nom, class: "avito-input", placeholder: "Entrez votre nom" %>
+    </div>
+  
+    <div class="avito-form-group">
+      <%= form.label :prenom, "Prénom", class: "avito-label" %>
+      <%= form.text_field :prenom, class: "avito-input", placeholder: "Entrez votre prénom" %>
+    </div>
+  
+    <div class="avito-form-group">
+      <%= form.label :email, "Email", class: "avito-label" %>
+      <%= form.email_field :email, class: "avito-input", placeholder: "Entrez votre email" %>
+    </div>
+  
+    <div class="avito-form-group">
+      <%= form.label :phone, "Téléphone", class: "avito-label" %>
+      <%= form.telephone_field :phone, class: "avito-input", placeholder: "Entrez votre numéro de téléphone" %>
+    </div>
+  
+    <div class="avito-form-group">
+      <%= form.label :password, "Mot de passe", class: "avito-label" %>
+      <%= form.password_field :password, class: "avito-input", placeholder: "Créez un mot de passe" %>
+    </div>
+  
+    <div class="avito-form-group">
+      <%= form.label :password_confirmation, "Confirmation du mot de passe", class: "avito-label" %>
+      <%= form.password_field :password_confirmation, class: "avito-input", placeholder: "Confirmez votre mot de passe" %>
+    </div>
+  
+    <div class="avito-button-container">
+      <%= form.submit "S'inscrire", class: "avito-button" %>
+    </div>
+  <% end %>
+  
+  <div class="avito-signup">
+    <p>Vous avez déjà un compte? <%= link_to "Se connecter", login_path, class: "avito-link" %></p>
+  </div>
